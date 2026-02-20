@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNB | 방송용 채팅 봇</title>
+  <style>
+    @font-face {
+      font-family: 'Mulmaru';
+      src: url('fonts/Mulmaru.woff2') format('woff2'),
+           url('fonts/Mulmaru.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #171717;
+      --text: #e5e5e5;
+      --text-muted: #737373;
+      --accent: #a3a3a3;
+      --accent-soft: rgba(163, 163, 163, 0.12);
+      --point-red: #dc2626;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Mulmaru', -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: 'Mulmaru', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      margin: 0;
+      background-image:
+        radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255,255,255,0.03), transparent 60%),
+        radial-gradient(ellipse 50% 30% at 100% 80%, rgba(255,255,255,0.02), transparent);
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .snb {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 200px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.5rem 0;
+    }
+
+    .snb-title {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .snb nav a {
+      display: block;
+      padding: 0.6rem 1.25rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .snb nav a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .snb nav a.active {
+      color: var(--text);
+      border-left: 2px solid var(--text-muted);
+      padding-left: calc(1.25rem - 2px);
+    }
+
+    .snb-dropdown {
+      position: relative;
+    }
+
+    .snb-dropdown-trigger {
+      display: block;
+      padding: 0.6rem 1.25rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .snb-dropdown:hover .snb-dropdown-trigger,
+    .snb-dropdown.open .snb-dropdown-trigger {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .snb-dropdown-trigger.active {
+      color: var(--text);
+      border-left: 2px solid var(--text-muted);
+      padding-left: calc(1.25rem - 2px);
+    }
+
+    .snb-dropdown-menu {
+      max-height: 0;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.2);
+      transition: max-height 0.25s ease;
+    }
+
+    .snb-dropdown:hover .snb-dropdown-menu,
+    .snb-dropdown.open .snb-dropdown-menu {
+      max-height: 160px;
+    }
+
+    .snb-dropdown-menu a {
+      display: block;
+      padding: 0.45rem 1.25rem 0.45rem 2rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s, background 0.2s;
+      border-left: 2px solid transparent;
+    }
+
+    .snb-dropdown-menu a:hover,
+    .snb-dropdown-menu a.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border-left-color: var(--text-muted);
+    }
+
+    .main {
+      flex: 1;
+      margin-left: 200px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .title {
+      font-size: clamp(2.5rem, 10vw, 4.5rem);
+      font-weight: normal;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, #fff 0%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.85rem;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      font-weight: normal;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-weight: normal;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      font-family: 'Mulmaru', sans-serif;
+      font-size: 1rem;
+      color: #fff;
+      background: var(--point-red);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4);
+    }
+
+    .cta:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+      .snb {
+        position: relative;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .main {
+        margin-left: 0;
+      }
+      .snb-title {
+        margin-bottom: 0;
+        margin-right: 0.5rem;
+      }
+      .snb nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+      .snb nav a {
+        padding: 0.4rem 0.75rem;
+        border-left: none;
+        padding-left: 0.75rem;
+      }
+      .snb nav a.active {
+        border-left: none;
+        border-bottom: 2px solid var(--text-muted);
+        padding-left: 0.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .title {
+        font-size: 2.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="snb">
+      <div class="snb-title">Side Navigation Bar</div>
+      <nav>
+        <a href="index.html" class="active">홈</a>
+        <a href="command.html">명령어</a>
+        <a href="rank.html">순위</a>
+        <a href="schedule.html">방송일정</a>
+        <div class="snb-dropdown">
+          <span class="snb-dropdown-trigger">당근 [포인트]</span>
+          <div class="snb-dropdown-menu">
+            <a href="use-earn.html">당근 획득 방법</a>
+            <a href="use.html">당근으로 래비 괴롭히기</a>
+            <a href="use-rice.html">당근으로 쌀먹하기</a>
+          </div>
+        </div>
+        <div class="snb-dropdown">
+          <span class="snb-dropdown-trigger">이벤트</span>
+          <div class="snb-dropdown-menu">
+            <a href="event-dst.html">돈스타브</a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+    <main class="main">
+      <span class="badge">방송용 채팅 봇</span>
+      <h1 class="title">방송용 채팅 봇</h1>
+      <p class="subtitle">방송 채팅을 더 편하게</p>
+      <a href="https://chzzk.naver.com/4d4387a742bc92e1f1cfe4c43c71f14c" class="cta" target="_blank" rel="noopener">래비방송 보러가기</a>
+    </main>
+  </div>
+  <script>
+    document.querySelectorAll('.snb-dropdown-trigger').forEach(function(trigger) {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        var dd = trigger.closest('.snb-dropdown');
+        dd.classList.toggle('open');
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.snb')) {
+        document.querySelectorAll('.snb-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+      }
+    });
+  </script>
+</body>
+</html>
