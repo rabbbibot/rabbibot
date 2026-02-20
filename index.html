@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SNB | 방송용 채팅 봇</title>
+  <title>SNB | 봇</title>
   <style>
     @font-face {
       font-family: 'Mulmaru';
@@ -209,6 +209,29 @@
       transform: translateY(0);
     }
 
+    .cta-discord {
+      display: inline-block;
+      margin-left: 0.75rem;
+      padding: 0.9rem 2rem;
+      font-family: 'Mulmaru', sans-serif;
+      font-size: 1rem;
+      color: #fff;
+      background: #1e3a5f;
+      text-decoration: none;
+      border-radius: 12px;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .cta-discord:hover {
+      background: #2a4a7a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30, 58, 95, 0.4);
+    }
+
+    .cta-discord:active {
+      transform: translateY(0);
+    }
+
     @media (max-width: 768px) {
       .layout {
         flex-direction: column;
@@ -258,7 +281,7 @@
 <body>
   <div class="layout">
     <aside class="snb">
-      <div class="snb-title">Side Navigation Bar</div>
+      <div class="snb-title">Rabbi bot</div>
       <nav>
         <a href="index.html" class="active">홈</a>
         <a href="command.html">명령어</a>
@@ -281,10 +304,11 @@
       </nav>
     </aside>
     <main class="main">
-      <span class="badge">방송용 채팅 봇</span>
-      <h1 class="title">방송용 채팅 봇</h1>
-      <p class="subtitle">방송 채팅을 더 편하게</p>
+      <span class="badge">봇</span>
+      <h1 class="title">봇</h1>
+      <p class="subtitle">매일 9시에 만나요!</p>
       <a href="https://chzzk.naver.com/4d4387a742bc92e1f1cfe4c43c71f14c" class="cta" target="_blank" rel="noopener">래비방송 보러가기</a>
+      <a href="https://discord.gg/" class="cta-discord" target="_blank" rel="noopener noreferrer">디스코드로 이동하기</a>
     </main>
   </div>
   <script>
@@ -294,11 +318,6 @@
         var dd = trigger.closest('.snb-dropdown');
         dd.classList.toggle('open');
       });
-    });
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.snb')) {
-        document.querySelectorAll('.snb-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
-      }
     });
   </script>
 </body>

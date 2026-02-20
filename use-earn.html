@@ -144,6 +144,34 @@
       margin-top: 0.25rem;
     }
 
+    .earn-item:has(.btn-toon) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .earn-item:has(.btn-toon) p {
+      margin: 0;
+    }
+
+    .earn-item .btn-toon {
+      display: inline-block;
+      flex-shrink: 0;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      background: #1e3a5f;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .earn-item .btn-toon:hover {
+      background: #2a4a7a;
+    }
+
     .back {
       display: inline-block;
       margin-top: 2rem;
@@ -158,6 +186,12 @@
     }
 
     @media (max-width: 768px) {
+      .earn-item:has(.btn-toon) {
+        flex-wrap: wrap;
+      }
+      .earn-item .btn-toon {
+        margin-left: auto;
+      }
       .layout { flex-direction: column; }
       .snb {
         position: relative;
@@ -181,7 +215,7 @@
 <body>
   <div class="layout">
     <aside class="snb">
-      <div class="snb-title">Side Navigation Bar</div>
+      <div class="snb-title">Rabbi bot</div>
       <nav>
         <a href="index.html">홈</a>
         <a href="command.html">명령어</a>
@@ -208,14 +242,14 @@
 
       <div class="content">
         <div class="earn-item">
-          <p>매일 출석 시 300당근을 획득할 수 있습니다.</p>
-          <span class="cmd">!출석</span>
+          <p>[!출석] 명령어로 매일 출석 시 300당근을 획득할 수 있습니다.</p>
         </div>
         <div class="earn-item">
           <p>치지직 도네이션 금액의 10%가 당근으로 적립됩니다.</p>
         </div>
         <div class="earn-item">
           <p>투네이션 도네 금액의 15%가 당근으로 적립됩니다.</p>
+          <a href="https://toon.at/donate/162538rabi" target="_blank" rel="noopener noreferrer" class="btn-toon">투네이션 확인</a>
         </div>
 
         <a href="index.html" class="back">← 홈으로</a>
@@ -225,9 +259,6 @@
   <script>
     document.querySelectorAll('.snb-dropdown-trigger').forEach(function(trigger) {
       trigger.addEventListener('click', function(e) { e.preventDefault(); trigger.closest('.snb-dropdown').classList.toggle('open'); });
-    });
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.snb')) document.querySelectorAll('.snb-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
     });
   </script>
 </body>

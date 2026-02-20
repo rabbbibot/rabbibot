@@ -136,6 +136,58 @@
       color: var(--accent);
     }
 
+    .schedule-week {
+      margin-bottom: 2rem;
+    }
+
+    .schedule-week-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .schedule-week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(20, 20, 24, 0.5);
+    }
+
+    .schedule-day {
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.85rem;
+    }
+
+    .schedule-day:last-child {
+      border-right: none;
+    }
+
+    .schedule-day-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .schedule-day-date {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .schedule-day.today {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    .schedule-day.today .schedule-day-label {
+      color: var(--accent);
+    }
+
     @media (max-width: 768px) {
       .layout { flex-direction: column; }
       .snb {
@@ -160,7 +212,7 @@
 <body>
   <div class="layout">
     <aside class="snb">
-      <div class="snb-title">Side Navigation Bar</div>
+      <div class="snb-title">Rabbi bot</div>
       <nav>
         <a href="index.html">홈</a>
         <a href="command.html">명령어</a>
@@ -186,7 +238,11 @@
       <h1 class="page-title">방송일정</h1>
 
       <div class="content">
-        <p style="color: var(--text-muted);">방송 일정을 추가해 주세요.</p>
+        <div class="schedule-week">
+          <div class="schedule-week-title" id="weekTitle"></div>
+          <div class="schedule-week-grid" id="weekGrid"></div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 1rem;">방송 일정을 추가해 주세요.</p>
 
         <a href="index.html" class="back">← 홈으로</a>
       </div>
@@ -196,9 +252,40 @@
     document.querySelectorAll('.snb-dropdown-trigger').forEach(function(trigger) {
       trigger.addEventListener('click', function(e) { e.preventDefault(); trigger.closest('.snb-dropdown').classList.toggle('open'); });
     });
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.snb')) document.querySelectorAll('.snb-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
-    });
+
+    var dayNames = ['월', '화', '수', '목', '금', '토', '일'];
+
+    function getMonday(d) {
+      var date = new Date(d);
+      var day = date.getDay();
+      var diff = date.getDate() - (day === 0 ? 6 : day - 1);
+      return new Date(date.setDate(diff));
+    }
+
+    function renderWeek() {
+      var now = new Date();
+      var monday = getMonday(now);
+      var titleEl = document.getElementById('weekTitle');
+      var gridEl = document.getElementById('weekGrid');
+      if (!titleEl || !gridEl) return;
+
+      titleEl.textContent = monday.getFullYear() + '년 ' + (monday.getMonth() + 1) + '월';
+
+      gridEl.innerHTML = '';
+      var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+      for (var i = 0; i < 7; i++) {
+        var d = new Date(monday);
+        d.setDate(d.getDate() + i);
+        var cell = document.createElement('div');
+        cell.className = 'schedule-day';
+        if (d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() === today) cell.classList.add('today');
+        cell.innerHTML = '<span class="schedule-day-label">' + dayNames[i] + '</span><span class="schedule-day-date">' + d.getDate() + '</span>';
+        gridEl.appendChild(cell);
+      }
+    }
+
+    renderWeek();
+    setInterval(renderWeek, 10000);
   </script>
 </body>
 </html>

@@ -211,7 +211,7 @@
 <body>
   <div class="layout">
     <aside class="snb">
-      <div class="snb-title">Side Navigation Bar</div>
+      <div class="snb-title">Rabbi bot</div>
       <nav>
         <a href="index.html">홈</a>
         <a href="command.html" class="active">명령어</a>
@@ -250,16 +250,20 @@
           <td>사용 가능한 명령어 목록을 보여줍니다.</td>
         </tr>
         <tr>
-          <td class="cmd-name">!순위</td>
-          <td>순위를 확인합니다.</td>
-        </tr>
-        <tr>
           <td class="cmd-name">!출석</td>
           <td>출석하여 300당근을 획득합니다.</td>
         </tr>
         <tr>
+          <td class="cmd-name">!당근 / !포인트</td>
+          <td>내가 보유한 당근 갯수를 확인할 수 있습니다.</td>
+        </tr>
+        <tr>
           <td class="cmd-name">!디코</td>
           <td>래비 방송용 디스코드 주소를 보여줍니다.</td>
+        </tr>
+        <tr>
+          <td class="cmd-name">!순위</td>
+          <td>순위를 확인합니다.</td>
         </tr>
         <!-- 봇 명령어 추가 시 여기에 행을 넣어 주세요 -->
       </tbody>
@@ -272,9 +276,6 @@
   <script>
     document.querySelectorAll('.snb-dropdown-trigger').forEach(function(trigger) {
       trigger.addEventListener('click', function(e) { e.preventDefault(); trigger.closest('.snb-dropdown').classList.toggle('open'); });
-    });
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.snb')) document.querySelectorAll('.snb-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
     });
   </script>
 </body>
