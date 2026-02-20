@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>당근 | SNB</title>
+  <title>소개문 넣기 | Who Is Rabbi? | SNB</title>
   <style>
     @font-face {
       font-family: 'Mulmaru';
@@ -21,7 +21,6 @@
       --text-muted: #737373;
       --accent: #a3a3a3;
       --accent-soft: rgba(163, 163, 163, 0.12);
-      --point-red: #dc2626;
     }
 
     * {
@@ -92,7 +91,7 @@
     .snb-dropdown:hover .snb-dropdown-trigger, .snb-dropdown.open .snb-dropdown-trigger { color: var(--text); background: rgba(255,255,255,0.05); }
     .snb-dropdown-trigger.active { color: var(--text); border-left: 2px solid var(--text-muted); padding-left: calc(1.25rem - 2px); }
     .snb-dropdown-menu { max-height: 0; overflow: hidden; background: rgba(0,0,0,0.2); transition: max-height 0.25s ease; }
-    .snb-dropdown:hover .snb-dropdown-menu, .snb-dropdown.open .snb-dropdown-menu { max-height: 160px; }
+    .snb-dropdown:hover .snb-dropdown-menu, .snb-dropdown.open .snb-dropdown-menu { max-height: 200px; }
     .snb-dropdown-menu a { display: block; padding: 0.45rem 1.25rem 0.45rem 2rem; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s, background 0.2s; border-left: 2px solid transparent; }
     .snb-dropdown-menu a:hover, .snb-dropdown-menu a.active { color: var(--text); background: rgba(255,255,255,0.04); border-left-color: var(--text-muted); }
 
@@ -118,34 +117,6 @@
       background-clip: text;
     }
 
-    .content {
-      width: 100%;
-      max-width: 560px;
-      text-align: left;
-    }
-
-    .use-card {
-      padding: 1.25rem 1.5rem;
-      background: rgba(20, 20, 24, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-    }
-
-    .use-card h3 {
-      color: var(--accent);
-      font-size: 1rem;
-      font-weight: normal;
-      margin-bottom: 0.5rem;
-    }
-
-    .use-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
     .section-title {
       font-size: clamp(1.35rem, 4vw, 1.6rem);
       font-weight: normal;
@@ -157,32 +128,10 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .carrot-item {
-      padding: 1.25rem 1.5rem;
-      background: rgba(20, 20, 24, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-    }
-
-    .carrot-item .amount {
-      display: inline-block;
-      color: var(--point-red);
-      font-size: 0.9rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .carrot-item .item-title {
-      color: var(--text);
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .carrot-item .item-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
+    .content {
+      width: 100%;
+      max-width: 560px;
+      text-align: left;
     }
 
     .back {
@@ -227,11 +176,11 @@
         <a href="index.html">홈</a>
         <a href="command.html">명령어</a>
         <a href="schedule.html">방송일정</a>
-        <div class="snb-dropdown open">
-          <span class="snb-dropdown-trigger active">당근 [포인트]</span>
+        <div class="snb-dropdown">
+          <span class="snb-dropdown-trigger">당근 [포인트]</span>
           <div class="snb-dropdown-menu">
             <a href="use-earn.html">당근 획득 방법</a>
-            <a href="use.html" class="active">당근으로 래비 괴롭히기</a>
+            <a href="use.html">당근으로 래비 괴롭히기</a>
             <a href="use-rice.html">당근으로 쌀먹하기</a>
           </div>
         </div>
@@ -241,44 +190,24 @@
             <a href="event-dst.html">돈스타브</a>
           </div>
         </div>
-        <div class="snb-dropdown">
-          <span class="snb-dropdown-trigger">Who Is Rabbi?</span>
+        <div class="snb-dropdown open">
+          <span class="snb-dropdown-trigger active">Who Is Rabbi?</span>
           <div class="snb-dropdown-menu">
             <a href="event-fan.html">팬캐릭터</a>
-            <a href="who-intro.html">소개문 넣기</a>
+            <a href="who-intro.html" class="active">소개문 넣기</a>
           </div>
         </div>
       </nav>
     </aside>
     <main class="main">
-      <h1 class="page-title">당근</h1>
+      <h1 class="page-title">Who Is Rabbi?</h1>
 
       <div class="content">
-    <h2 class="section-title">당근으로 래비 괴롭히기</h2>
+        <h2 class="section-title">소개문 넣기</h2>
+        <p style="color: var(--text-muted);">소개문 내용을 추가해 주세요.</p>
 
-    <div class="carrot-item">
-      <div class="amount">[1만 당근]</div>
-      <div class="item-title">노래 신청</div>
-      <div class="item-desc">원하는 노래를 '아무거나' 불러 드립니다.</div>
-    </div>
-    <div class="carrot-item">
-      <div class="amount">[2만 당근]</div>
-      <div class="item-title">공겜 신청</div>
-      <div class="item-desc">시청자가 원하는 공포게임을 플레이합니다.<br>* 평균 플레이타임 2~3시간 정도의 공포게임 한정</div>
-    </div>
-    <div class="carrot-item">
-      <div class="amount">[10만 당근]</div>
-      <div class="item-title">괴식 신청</div>
-      <div class="item-desc">시청자들이 제시한 괴식들 중 1개를 골라서 먹습니다.<br>단, 괴식의 총 금액은 10만원 이하로 제한됩니다.</div>
-    </div>
-    <div class="carrot-item">
-      <div class="amount">[20만 당근]</div>
-      <div class="item-title">게임 엔딩 봐주세요</div>
-      <div class="item-desc">혈압 마라톤류도 가능! 원하는 게임의 엔딩을 봐드립니다.<br>단, 게임의 최대 플레이타임은 12시간 입니다.</div>
-    </div>
-
-    <a href="index.html" class="back">← 홈으로</a>
-  </div>
+        <a href="index.html" class="back">← 홈으로</a>
+      </div>
     </main>
   </div>
   <script>

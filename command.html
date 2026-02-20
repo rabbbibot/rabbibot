@@ -123,6 +123,10 @@
       text-align: left;
     }
 
+    .content.content--command {
+      max-width: 700px;
+    }
+
     .cmd-table {
       width: 100%;
       border-collapse: collapse;
@@ -143,6 +147,11 @@
     .cmd-table thead tr {
       background: rgba(255, 255, 255, 0.05);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cmd-table th:first-child,
+    .cmd-table td:first-child {
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .cmd-table th {
@@ -215,7 +224,6 @@
       <nav>
         <a href="index.html">홈</a>
         <a href="command.html" class="active">명령어</a>
-        <a href="rank.html">순위</a>
         <a href="schedule.html">방송일정</a>
         <div class="snb-dropdown">
           <span class="snb-dropdown-trigger">당근 [포인트]</span>
@@ -231,12 +239,19 @@
             <a href="event-dst.html">돈스타브</a>
           </div>
         </div>
+        <div class="snb-dropdown">
+          <span class="snb-dropdown-trigger">Who Is Rabbi?</span>
+          <div class="snb-dropdown-menu">
+            <a href="event-fan.html">팬캐릭터</a>
+            <a href="who-intro.html">소개문 넣기</a>
+          </div>
+        </div>
       </nav>
     </aside>
     <main class="main">
       <h1 class="page-title">명령어</h1>
 
-      <div class="content">
+      <div class="content content--command">
     <table class="cmd-table">
       <thead>
         <tr>
@@ -251,7 +266,7 @@
         </tr>
         <tr>
           <td class="cmd-name">!출석</td>
-          <td>출석하여 300당근을 획득합니다.</td>
+          <td>출석하여 300당근을 획득합니다. 출석은 1일 1회 가능합니다.</td>
         </tr>
         <tr>
           <td class="cmd-name">!당근 / !포인트</td>
@@ -262,8 +277,8 @@
           <td>래비 방송용 디스코드 주소를 보여줍니다.</td>
         </tr>
         <tr>
-          <td class="cmd-name">!순위</td>
-          <td>순위를 확인합니다.</td>
+          <td class="cmd-name">!탕 / !탕탕 / !탕탕탕</td>
+          <td>이벤트중 당근을 사용하면 재미있는 일이 일어날지도..?</td>
         </tr>
         <!-- 봇 명령어 추가 시 여기에 행을 넣어 주세요 -->
       </tbody>

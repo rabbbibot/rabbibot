@@ -123,6 +123,10 @@
       text-align: left;
     }
 
+    .content.content--schedule {
+      max-width: 720px;
+    }
+
     .back {
       display: inline-block;
       margin-top: 2rem;
@@ -141,26 +145,32 @@
     }
 
     .schedule-week-title {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      font-weight: 500;
     }
 
     .schedule-week-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 0.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
+      gap: 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
       overflow: hidden;
-      background: rgba(20, 20, 24, 0.5);
+      background: rgba(20, 20, 24, 0.6);
     }
 
     .schedule-day {
-      padding: 0.75rem 0.5rem;
+      padding: 1rem 0.6rem;
       text-align: center;
-      border-right: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 0.85rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 1rem;
+      min-height: 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     .schedule-day:last-child {
@@ -169,14 +179,15 @@
 
     .schedule-day-label {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
     }
 
     .schedule-day-date {
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text);
+      font-size: 1.05rem;
     }
 
     .schedule-day.today {
@@ -188,7 +199,39 @@
       color: var(--accent);
     }
 
+    .schedule-day-program {
+      display: block;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.45;
+      word-break: keep-all;
+      width: 100%;
+    }
+
+    .schedule-day.today .schedule-day-program {
+      color: var(--text);
+    }
+
+    .schedule-day-program--rest {
+      color: #c53030 !important;
+    }
+
+    .schedule-day-program .schedule-time {
+      color: #c9a845;
+    }
+
     @media (max-width: 768px) {
+      .content--schedule {
+        max-width: 100%;
+      }
+      .schedule-day {
+        min-height: 4.5rem;
+        padding: 0.85rem 0.4rem;
+      }
+      .schedule-day-program {
+        font-size: 0.85rem;
+      }
       .layout { flex-direction: column; }
       .snb {
         position: relative;
@@ -216,7 +259,6 @@
       <nav>
         <a href="index.html">홈</a>
         <a href="command.html">명령어</a>
-        <a href="rank.html">순위</a>
         <a href="schedule.html" class="active">방송일정</a>
         <div class="snb-dropdown">
           <span class="snb-dropdown-trigger">당근 [포인트]</span>
@@ -232,12 +274,19 @@
             <a href="event-dst.html">돈스타브</a>
           </div>
         </div>
+        <div class="snb-dropdown">
+          <span class="snb-dropdown-trigger">Who Is Rabbi?</span>
+          <div class="snb-dropdown-menu">
+            <a href="event-fan.html">팬캐릭터</a>
+            <a href="who-intro.html">소개문 넣기</a>
+          </div>
+        </div>
       </nav>
     </aside>
     <main class="main">
       <h1 class="page-title">방송일정</h1>
 
-      <div class="content">
+      <div class="content content--schedule">
         <div class="schedule-week">
           <div class="schedule-week-title" id="weekTitle"></div>
           <div class="schedule-week-grid" id="weekGrid"></div>
@@ -254,6 +303,16 @@
     });
 
     var dayNames = ['월', '화', '수', '목', '금', '토', '일'];
+
+    var scheduleData = {
+      '2/16': ['[벌칙게임] 그림자 복도'],
+      '2/17': ['하숙생이 전부 미녀입니다만? 시즌2'],
+      '2/18': ['[벌칙게임] 얼불춤'],
+      '2/19': ['히오스'],
+      '2/20': ['디코 읽기', '영도 데이'],
+      '2/21': ['휴방'],
+      '2/22': ['[벌칙게임] 후즈 앳 더 도어']
+    };
 
     function getMonday(d) {
       var date = new Date(d);
@@ -276,10 +335,18 @@
       for (var i = 0; i < 7; i++) {
         var d = new Date(monday);
         d.setDate(d.getDate() + i);
+        var key = (d.getMonth() + 1) + '/' + d.getDate();
+        var programs = scheduleData[key];
         var cell = document.createElement('div');
         cell.className = 'schedule-day';
         if (d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() === today) cell.classList.add('today');
-        cell.innerHTML = '<span class="schedule-day-label">' + dayNames[i] + '</span><span class="schedule-day-date">' + d.getDate() + '</span>';
+        var restClass = (programs && programs.length === 1 && programs[0] === '휴방') ? ' schedule-day-program--rest' : '';
+        var displayPrograms = programs && programs.length ? programs.map(function(p, i) {
+          if (p === '휴방') return p;
+          return i === 0 ? '<span class="schedule-time">[저녁 9시]</span> ' + p : p;
+        }) : [];
+        var programHtml = displayPrograms.length ? '<span class="schedule-day-program' + restClass + '">' + displayPrograms.join('<br>') + '</span>' : '';
+        cell.innerHTML = '<span class="schedule-day-label">' + dayNames[i] + '</span><span class="schedule-day-date">' + d.getDate() + '</span>' + programHtml;
         gridEl.appendChild(cell);
       }
     }

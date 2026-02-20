@@ -117,6 +117,17 @@
       background-clip: text;
     }
 
+    .section-title {
+      font-size: clamp(1.35rem, 4vw, 1.6rem);
+      font-weight: normal;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
     .content {
       width: 100%;
       max-width: 560px;
@@ -219,7 +230,6 @@
       <nav>
         <a href="index.html">홈</a>
         <a href="command.html">명령어</a>
-        <a href="rank.html">순위</a>
         <a href="schedule.html">방송일정</a>
         <div class="snb-dropdown open">
           <span class="snb-dropdown-trigger active">당근 [포인트]</span>
@@ -235,12 +245,20 @@
             <a href="event-dst.html">돈스타브</a>
           </div>
         </div>
+        <div class="snb-dropdown">
+          <span class="snb-dropdown-trigger">Who Is Rabbi?</span>
+          <div class="snb-dropdown-menu">
+            <a href="event-fan.html">팬캐릭터</a>
+            <a href="who-intro.html">소개문 넣기</a>
+          </div>
+        </div>
       </nav>
     </aside>
     <main class="main">
-      <h1 class="page-title">당근 획득 방법</h1>
+      <h1 class="page-title">당근</h1>
 
       <div class="content">
+        <h2 class="section-title">당근 획득 방법</h2>
         <div class="earn-item">
           <p>[!출석] 명령어로 매일 출석 시 300당근을 획득할 수 있습니다.</p>
         </div>
@@ -249,7 +267,7 @@
         </div>
         <div class="earn-item">
           <p>투네이션 도네 금액의 15%가 당근으로 적립됩니다.</p>
-          <a href="https://toon.at/donate/162538rabi" target="_blank" rel="noopener noreferrer" class="btn-toon">투네이션 확인</a>
+          <a href="https://toon.at/donate/162538rabi" target="_blank" rel="noopener noreferrer" class="btn-toon">투네이션</a>
         </div>
 
         <a href="index.html" class="back">← 홈으로</a>
